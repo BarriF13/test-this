@@ -1,0 +1,11 @@
+## Test this
+
+JavaScript app with testing frame work
+
+To run the test "testthis"
+
+### npm packages
+* npm init -y 
+* npm link ---- #!/usr/bin/env node and bin in package.json
+
+
