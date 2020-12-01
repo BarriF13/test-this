@@ -11,8 +11,18 @@ class Runner {
   }
   //----------------
   //after finding files we run the tests
-  async runTests(){
-    for(let file of this.testFiles){
+  async runTests() {
+    for (let file of this.testFiles) {
+      const beforeEaches = [];
+      global.beforeEach = (fn) => {
+        beforeEaches.push(fn)
+      };
+      global.it = (desc, fn) => {
+        // console.log(desc);
+        beforeEaches.forEach(func =>func());
+        fn();
+      };
+
       require(file.name);//when we require the file inside a func node will find it and execute the file here
     }
   }
@@ -32,7 +42,7 @@ class Runner {
       } else if (stats.isDirectory()) {
         const childFiles = await fs.promises.readdir(filepath);
 
-        files.push(...childFiles.map(f=> path.join(file , f)));
+        files.push(...childFiles.map(f => path.join(file, f)));
       }
     }
   }
