@@ -1,6 +1,6 @@
 ## Test this
 
-JavaScript app with testing frame work
+JavaScript testing frame work
 
 To run the test "testthis"
 
