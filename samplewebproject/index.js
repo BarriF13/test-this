@@ -10,4 +10,6 @@ document.querySelector('form').addEventListener('submit', (event) => {
     //must be invalid
     header.innerHTML = 'inValid email..Noh'
   }
-})
+});
+
+// window.stuffLoaded = true;

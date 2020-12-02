@@ -8,8 +8,15 @@ const render = async (filename) => {
     runScripts: 'dangerously',
     resources: 'usable'
   });
+  //wrap inside promise to delay the loading of the whole page 
+  return new Promise((resolve, reject) => {
+    dom.window.document.addEventListener('DOMContentLoaded', () => {
+      //console.log(window.stuffLoaded)
+      resolve(dom);
+    });
+  })
 
-  return dom;
+  // return dom;
 
 };
 module.exports = render;
