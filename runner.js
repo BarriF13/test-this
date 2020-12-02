@@ -19,11 +19,25 @@ class Runner {
       };
       global.it = (desc, fn) => {
         // console.log(desc);
-        beforeEaches.forEach(func =>func());
-        fn();
-      };
+        beforeEaches.forEach(func => func());
+        //to handle errors ocurred during our test we need to do try and catch to avoid the test to collapse
+        try {
+          fn();
+          console.log(`OK - ${desc}`);
+        } catch (err) {
+          console.log(`X -  ${desc}`);
+          console.log('\t', err.message);// \t is tab 
+        }
 
-      require(file.name);//when we require the file inside a func node will find it and execute the file here
+      };
+      //to skip the typo in stopping test for running
+      try {
+        require(file.name);//when we require the file inside a func node will find it and execute the file here
+      } catch (err) {
+        console.log('X - Error Loading File', file.name);
+        console.log(err);
+      }
+
     }
   }
 
