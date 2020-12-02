@@ -21,5 +21,5 @@ num.push(3);
 });
 
 it ('beforeEach is ran each time' , ()=>{
-  assert.strictEqual(num.length , 4);
+  assert.strictEqual(num.length , 3);
 })
