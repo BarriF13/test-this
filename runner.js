@@ -20,7 +20,9 @@ class Runner {
     for (let file of this.testFiles) {
       console.log(chalk.gray(`--- ${file.shortName}`));
       const beforeEaches = [];
-      global.render = render;
+
+      global.render = render;//jsdom
+
       global.beforeEach = (fn) => {
         beforeEaches.push(fn)
       };
