@@ -5,8 +5,9 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
+const render = require('./render')
 
-const forbiddenDirs =['mode_modules'];
+const forbiddenDirs = ['mode_modules'];
 class Runner {
   //store a reference to every test files we discover
   constructor() {
@@ -19,6 +20,7 @@ class Runner {
     for (let file of this.testFiles) {
       console.log(chalk.gray(`--- ${file.shortName}`));
       const beforeEaches = [];
+      global.render = render;
       global.beforeEach = (fn) => {
         beforeEaches.push(fn)
       };
