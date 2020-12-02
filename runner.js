@@ -26,12 +26,12 @@ class Runner {
       global.beforeEach = (fn) => {
         beforeEaches.push(fn)
       };
-      global.it = (desc, fn) => {
+      global.it = async (desc, fn) => {
         // console.log(desc);
         beforeEaches.forEach(func => func());
         //to handle errors ocurred during our test we need to do try and catch to avoid the test to collapse
         try {
-          fn();
+        await  fn();
           console.log(chalk.green(`\tOK - ${desc}`));
         } catch (err) {
           const message = err.message.replace(/\n/g, '\n\t\t');
