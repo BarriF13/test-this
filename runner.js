@@ -1,8 +1,10 @@
 // file collector
 //setup env
 //run test
+
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+const chalk = require('chalk')
 class Runner {
   //store a reference to every test files we discover
   constructor() {
@@ -13,6 +15,7 @@ class Runner {
   //after finding files we run the tests
   async runTests() {
     for (let file of this.testFiles) {
+      console.log(chalk.gray(`--- ${file.shortName}`));
       const beforeEaches = [];
       global.beforeEach = (fn) => {
         beforeEaches.push(fn)
@@ -23,10 +26,10 @@ class Runner {
         //to handle errors ocurred during our test we need to do try and catch to avoid the test to collapse
         try {
           fn();
-          console.log(`OK - ${desc}`);
+          console.log(chalk.green(`OK - ${desc}`));
         } catch (err) {
-          console.log(`X -  ${desc}`);
-          console.log('\t', err.message);// \t is tab 
+          console.log(chalk.red(`X -  ${desc}`));
+          console.log(chalk.red('\t', err.message));// \t is tab 
         }
 
       };
@@ -34,8 +37,8 @@ class Runner {
       try {
         require(file.name);//when we require the file inside a func node will find it and execute the file here
       } catch (err) {
-        console.log('X - Error Loading File', file.name);
-        console.log(err);
+        console.log(chalk.red('X - Error Loading File'), file.name);
+        console.log(chalk.red(err));
       }
 
     }
@@ -52,7 +55,7 @@ class Runner {
       const stats = await fs.promises.lstat(filepath); // if is path file or folder?
 
       if (stats.isFile() && file.includes('.test.js')) {
-        this.testFiles.push({ name: filepath })
+        this.testFiles.push({ name: filepath, shortName: file })
       } else if (stats.isDirectory()) {
         const childFiles = await fs.promises.readdir(filepath);
 

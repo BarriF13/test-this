@@ -23,5 +23,3 @@ num.push(3);
 it ('beforeEach is ran each time' , ()=>{
   assert.strictEqual(num.length , 3);
 })
-lkkjlklkh
-{}
