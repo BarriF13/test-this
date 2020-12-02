@@ -26,10 +26,11 @@ class Runner {
         //to handle errors ocurred during our test we need to do try and catch to avoid the test to collapse
         try {
           fn();
-          console.log(chalk.green(`OK - ${desc}`));
+          console.log(chalk.green(`\tOK - ${desc}`));
         } catch (err) {
-          console.log(chalk.red(`X -  ${desc}`));
-          console.log(chalk.red('\t', err.message));// \t is tab 
+          const message = err.message.replace(/\n/g, '\n\t\t');
+          console.log(chalk.red(`\tX -  ${desc}`));
+          console.log(chalk.red('\t', message));// \t is tab 
         }
 
       };
